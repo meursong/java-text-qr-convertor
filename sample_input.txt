@@ -1,0 +1,53 @@
+Application Error Log - Sample Data for QR Code Testing
+
+========================================
+Error Report ID: ERR-2025-1206-001
+Timestamp: 2025-12-06 10:30:25 UTC
+Application: TextQRConverter v1.0.0
+Environment: Internal Network Server
+========================================
+
+ERROR: Database connection timeout
+Stack Trace:
+java.sql.SQLTimeoutException: Connection timed out after 30000ms
+    at com.database.ConnectionPool.getConnection(ConnectionPool.java:245)
+    at com.application.service.DataService.fetchUserData(DataService.java:89)
+    at com.application.controller.UserController.handleUserRequest(UserController.java:156)
+    at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+
+Context Information:
+- User ID: 12345
+- Session ID: sess_67890abcdef
+- Request Type: GET /api/users/profile
+- Server Load: 85%
+- Memory Usage: 6.2GB / 8GB
+- Database Pool Status: 12/15 connections active
+
+Additional Debug Information:
+This error occurred during peak usage hours when the database server was experiencing high load.
+The connection pool was nearly exhausted, and new connections were timing out.
+Investigation shows that several long-running queries were blocking the connection pool.
+
+Recommended Actions:
+1. Increase connection pool size from 15 to 25
+2. Implement connection timeout retry logic
+3. Optimize slow-running queries in the user profile module
+4. Consider implementing database read replicas for load distribution
+
+System Configuration:
+- JVM Version: OpenJDK 11.0.16
+- OS: Ubuntu 20.04.5 LTS
+- Database: PostgreSQL 13.8
+- Connection Pool: HikariCP 5.0.1
+- Max Heap Size: 8192MB
+- Current Heap Usage: 6291MB (77%)
+
+This sample data demonstrates various types of text content that developers typically need to transfer:
+- Structured error logs with stack traces
+- Configuration parameters and system metrics
+- Diagnostic information and troubleshooting steps
+- JSON-like data structures and technical specifications
+
+The text-to-QR converter should handle this mixed content efficiently, preserving formatting
+and ensuring data integrity through checksums and error correction.
